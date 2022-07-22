@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const todos = await Todo.find();
+    const todos = await Todo.find({ deleted: false });
     res.json(todos);
   } catch (error) {
     res.status(500).send(error);
@@ -48,9 +48,22 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.patch("/delete", async (req, res) => {
+router.patch("/complete/:id", async (req, res) => {
   try {
-    const todoDeleted = await Todo.findByIdAndUpdate(req.body.id, {
+    const currentTodo = await Todo.findById(req.params.id);
+    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {
+      completed: !currentTodo.completed,
+      updatedAt: Date.now(),
+    });
+    res.json(updatedTodo);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.patch("/delete/:id", async (req, res) => {
+  try {
+    const todoDeleted = await Todo.findByIdAndUpdate(req.params.id, {
       deleted: true,
       deletedAt: Date.now(),
     });
