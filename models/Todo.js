@@ -8,10 +8,9 @@ const TodoSchema = mongoose.Schema({
   description: {
     type: String,
   },
-  completed: {
-    type: Boolean,
-    required: true,
-    default: false,
+  userID: {
+    type: String,
+    required: true    
   },
   deleted: {
     type: Boolean,

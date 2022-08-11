@@ -25,7 +25,8 @@ router.post("/", async (req, res) => {
     const todo = new Todo({
       title: req.body.title,
       description: req.body.description,
-      completed: req.body.completed,
+      userID: req.body.userID,
+      
     });
     const todoSaved = await todo.save();
     res.json(todoSaved);
@@ -39,7 +40,7 @@ router.put("/:id", async (req, res) => {
     const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {
       title: req.body.title,
       description: req.body.description,
-      completed: req.body.completed,
+      userID: req.body.userID,
       updatedAt: Date.now(),
     });
     res.json(updatedTodo);
@@ -52,7 +53,7 @@ router.patch("/complete/:id", async (req, res) => {
   try {
     const currentTodo = await Todo.findById(req.params.id);
     const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {
-      completed: !currentTodo.completed,
+      userID: !currentTodo.userID,
       updatedAt: Date.now(),
     });
     res.json(updatedTodo);
