@@ -8,7 +8,11 @@ const TodoSchema = mongoose.Schema({
   description: {
     type: String,
   },
-  userID: {
+  userName: {
+    type: String,
+    required: true    
+  },
+  category: {
     type: String,
     required: true    
   },

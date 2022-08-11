@@ -25,7 +25,8 @@ router.post("/", async (req, res) => {
     const todo = new Todo({
       title: req.body.title,
       description: req.body.description,
-      userID: req.body.userID,
+      category: req.body.category,
+      userName: req.body.userName,
       
     });
     const todoSaved = await todo.save();
@@ -40,7 +41,8 @@ router.put("/:id", async (req, res) => {
     const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {
       title: req.body.title,
       description: req.body.description,
-      userID: req.body.userID,
+      category: req.body.category,
+      userName: req.body.userName,
       updatedAt: Date.now(),
     });
     res.json(updatedTodo);
