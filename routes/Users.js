@@ -50,19 +50,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.patch("/complete/:id", async (req, res) => {
-  try {
-    const currentUser = await User.findById(req.params.id);
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-      userID: !currentUser.userID,
-      updatedAt: Date.now(),
-    });
-    res.json(updatedUser);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
 router.patch("/delete/:id", async (req, res) => {
   try {
     const userDeleted = await User.findByIdAndUpdate(req.params.id, {

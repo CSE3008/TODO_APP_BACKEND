@@ -51,19 +51,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.patch("/complete/:id", async (req, res) => {
-  try {
-    const currentTodo = await Todo.findById(req.params.id);
-    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, {
-      userID: !currentTodo.userID,
-      updatedAt: Date.now(),
-    });
-    res.json(updatedTodo);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
 router.patch("/delete/:id", async (req, res) => {
   try {
     const todoDeleted = await Todo.findByIdAndUpdate(req.params.id, {

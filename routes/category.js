@@ -47,18 +47,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.patch("/complete/:id", async (req, res) => {
-  try {
-    const currentCat = await Category.findById(req.params.id);
-    const updatedCat = await Category.findByIdAndUpdate(req.params.id, {
-        category: !currentCat.category,
-      updatedAt: Date.now(),
-    });
-    res.json(updatedCat);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
 
 router.patch("/delete/:id", async (req, res) => {
   try {
